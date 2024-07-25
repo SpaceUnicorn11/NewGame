@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbf3he66j75ef"]
+
+[ext_resource type="Script" path="res://Scripts/stage.gd" id="1_ieq26"]
+[ext_resource type="PackedScene" uid="uid://b68fablu114dx" path="res://player.tscn" id="2_8aa1v"]
+[ext_resource type="Texture2D" uid="uid://cthsxtjy02qe" path="res://Assets/Background.png" id="2_t24wt"]
+[ext_resource type="PackedScene" uid="uid://3s0cp1wq3im5" path="res://mob.tscn" id="3_ihmim"]
+[ext_resource type="Script" path="res://Scripts/label.gd" id="5_gdap0"]
+[ext_resource type="PackedScene" uid="uid://oc1c11t2uq63" path="res://weapon.tscn" id="6_wrhdi"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_j446u"]
+vertices = PackedVector2Array(1910, 1066, 6, 1066, 6, 8, 1910, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-4, -2, 1920, -2, 1920, 1076, -4, 1076)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Stage" type="Node"]
+script = ExtResource("1_ieq26")
+mob_scene = ExtResource("3_ihmim")
+
+[node name="Terrain" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_t24wt")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_j446u")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[node name="Player" parent="." instance=ExtResource("2_8aa1v")]
+position = Vector2(960, 540)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Label" type="Label" parent="Player"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = -180.0
+offset_right = 106.0
+offset_bottom = -111.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "50"
+script = ExtResource("5_gdap0")
+
+[node name="Weapon" parent="Player" instance=ExtResource("6_wrhdi")]
+position = Vector2(2, -29)
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="dead" from="Player" to="." method="_on_player_dead"]
+[connection signal="hit" from="Player" to="Player/Label" method="_on_player_hit"]

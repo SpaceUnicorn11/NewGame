@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dadscsp2vch24"]
+
+[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_buvcu"]
+[ext_resource type="Texture2D" uid="uid://b7rie141ygguh" path="res://Assets/Projectile.png" id="2_20f61"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_01pfm"]
+radius = 6.0
+
+[node name="Projectile" type="RigidBody2D"]
+position = Vector2(-12, -1)
+collision_layer = 2
+collision_mask = 2
+gravity_scale = 0.0
+script = ExtResource("1_buvcu")
+direction = Vector2(1, 0)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(12, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_20f61")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 1)
+rotation = -1.5708
+shape = SubResource("CircleShape2D_01pfm")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://oc1c11t2uq63"]
+
+[ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_55m0r"]
+[ext_resource type="PackedScene" uid="uid://dadscsp2vch24" path="res://projectile.tscn" id="1_lnv1v"]
+
+[node name="Weapon" type="Node2D"]
+position = Vector2(986, 530)
+script = ExtResource("1_55m0r")
+projectile_scene = ExtResource("1_lnv1v")
+
+[node name="WeaponCooldown" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="WeaponCooldown" to="." method="_on_weapon_cooldown_timeout"]
