@@ -9,9 +9,6 @@ func _ready():
 	
 	linear_velocity = direction * speed
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func hit():
 	linear_velocity = Vector2.ZERO

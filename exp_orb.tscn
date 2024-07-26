@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu78nh5j25ouv"]
+
+[ext_resource type="Script" path="res://Scripts/ExpOrb.gd" id="1_rgxrq"]
+[ext_resource type="Texture2D" uid="uid://d2smrfiu3i8ao" path="res://Assets/Exp.png" id="2_7elfc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xybln"]
+radius = 15.0
+height = 50.0
+
+[node name="ExpOrb" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 4
+gravity_scale = 0.0
+script = ExtResource("1_rgxrq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xybln")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_7elfc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

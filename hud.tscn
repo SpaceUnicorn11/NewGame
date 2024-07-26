@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddrpjw8vddf1v"]
+
+[ext_resource type="Script" path="res://Scripts/GameTime.gd" id="1_qx8ug"]
+[ext_resource type="Script" path="res://Scripts/HealthBar.gd" id="2_bopx6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoujp"]
+bg_color = Color(0, 0.290196, 0.968627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yghkc"]
+bg_color = Color(0.143083, 0.618484, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ii5gp"]
+bg_color = Color(0.929412, 0.0941176, 0.0509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfji6"]
+bg_color = Color(1, 0.376471, 0.0705882, 1)
+
+[node name="Hud" type="CanvasLayer"]
+visible = false
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="GameTime" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_top = 60.0
+offset_right = 65.0
+offset_bottom = 129.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "00:00"
+script = ExtResource("1_qx8ug")
+
+[node name="XPBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -600.0
+offset_right = 600.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_qoujp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yghkc")
+value = 20.0
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -130.0
+offset_right = 250.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_ii5gp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hfji6")
+max_value = 50.0
+step = 1.0
+value = 20.0
+rounded = true
+show_percentage = false
+script = ExtResource("2_bopx6")
+
+[node name="HealthValue" type="Label" parent="HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "20/50"
+
+[connection signal="timeout" from="Timer" to="GameTime" method="_on_timer_timeout"]

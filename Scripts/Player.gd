@@ -1,15 +1,16 @@
 extends Area2D
 
-@export var speed = 100 # How fast the player will move (pixels/sec).
-@export var health = 50 # Players health
-var alive = true # Is palyer alive
+@export var speed = 300 # How fast the player will move (pixels/sec).
+@export var max_health = 50 # Players max health
+var health = 5 # Players current health
+var can_move = true # If player can move
+var current_exp :int = 0 # Player current exp
+var next_level_xp = 10 # How much exp to next level
 
 signal hit # Emits when player takes damage
+signal healed # Emits when player gains health
 signal dead # Emits when dead
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
+signal level_up # Emits when level up
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -34,29 +35,41 @@ func _process(delta):
 	else:
 		$AnimatedSprite2D.stop()
 		
-	if alive:	
+	if can_move:	
 		position += velocity * delta
+		position = position.clamp(Vector2(50, 70), Vector2(3790, 2150))
 		if player_facing_direction.length() > 0:
 			$Weapon.direction = player_facing_direction.normalized()
 
 
 func _on_body_entered(body):
-	health -= body.damage
-	hit.emit(health)
-	# HIt animation 
-	$AnimatedSprite2D.play(("hit"))
-	await get_tree().create_timer(0.1).timeout 
-	$AnimatedSprite2D.play(("default"))
-	# Iframes
-	$CollisionShape2D.set_deferred("disabled", true)
-	await get_tree().create_timer(0.3).timeout
-	$CollisionShape2D.set_deferred("disabled", false)
-	# death
-	if health <= 0:
-		death()
-	#else: 	
-		
-	
+	if body.type == str("exp"):
+		gain_exp(body.exp_amount)
+		body.queue_free()
+	if body.type == str("mob"):
+		# HIt animation 
+		$AnimatedSprite2D.play(("hit"))
+		await get_tree().create_timer(0.1).timeout 
+		$AnimatedSprite2D.play(("default"))
+		# Iframes
+		$CollisionShape2D.set_deferred("disabled", true)
+		await get_tree().create_timer(0.3).timeout
+		$CollisionShape2D.set_deferred("disabled", false)
+		# death
+		if health <= 0:
+			death()
+		else: 	
+			health -= body.damage
+			hit.emit(health)
 		
 func death():
-	alive = false
+	dead.emit()
+	can_move = false
+
+func gain_exp(gained_exp :int):
+	if current_exp < next_level_xp:
+		current_exp += gained_exp
+	if current_exp >= next_level_xp:
+		current_exp	-= next_level_xp
+		next_level_xp += 50
+		level_up.emit()

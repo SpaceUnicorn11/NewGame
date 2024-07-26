@@ -3,11 +3,11 @@ extends RigidBody2D
 @export var speed = 50 # How fast the mob will move (pixels/sec).
 @export var health = 10 # How much health the mob has
 @export var damage = 1 # How much damage the mob deals
+@export var exp_orb_scene: PackedScene
+var can_move = true # if mob can move
+var type = str("mob")
 
 signal hit # Emits when mob takes damage
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,7 +21,8 @@ func _process(delta):
 	#else:
 		#$AnimatedSprite2D.stop()
 		
-	position += velocity * delta
+	if can_move:	
+		position += velocity * delta
 
 func _on_body_entered(body):
 	body.hit()
@@ -33,4 +34,7 @@ func _on_body_entered(body):
 	$AnimatedSprite2D.play(("default"))
 	# death
 	if health <= 0:
+		var exp_orb = exp_orb_scene.instantiate()
+		exp_orb.position = position
+		get_node('/root/Main/Stage').add_child(exp_orb)
 		queue_free()

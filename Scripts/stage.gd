@@ -4,6 +4,7 @@ extends Node
 var player_position :Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Hud.show()
 	spawn(5)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,11 +20,11 @@ func spawn(amount :int):
 	var modifier = [-1, 1]
 	for i in amount:
 		var mob = mob_scene.instantiate()
-		mob.position.x = $Player.position.x + randi_range(0, 700) * modifier.pick_random()
+		mob.position.x = $Player.position.x + randi_range(0, 1000) * modifier.pick_random()
 		if mob.position.x < $Player.position.x + 500:
-			mob.position.y = $Player.position.y + randi_range(500, 700) * modifier.pick_random()
+			mob.position.y = $Player.position.y + randi_range(500, 1000) * modifier.pick_random()
 		else:
-			mob.position.y = $Player.position.y + randi_range(0, 700) * modifier.pick_random()
+			mob.position.y = $Player.position.y + randi_range(0, 1000) * modifier.pick_random()
 		add_child(mob)
 	
 
