@@ -15,4 +15,4 @@ func press():
 		"number_of_shots":
 			get_node('/root/Main/Stage/Player/Weapon').number_of_shots += 1
 		"pickup_area":
-			get_node('/root/Main/Stage/Player/PickupArea/CollisionShape2D').scale += 0.2
+			get_node('/root/Main/Stage/Player/PickupArea/CollisionShape2D').scale += Vector2(0.2, 0.2)

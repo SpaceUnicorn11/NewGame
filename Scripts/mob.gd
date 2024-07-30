@@ -17,9 +17,14 @@ func _process(delta):
 	velocity = $NavigationAgent2D.get_next_path_position() - position
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-		#$AnimatedSprite2D.play()
-	#else:
-		#$AnimatedSprite2D.stop()
+		if position.x - $NavigationAgent2D.target_position.x < 0:
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.play('move')
+		else:
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.play('move')
+	else:
+		$AnimatedSprite2D.play('default')
 		
 	if can_move:	
 		position += velocity * delta
@@ -29,9 +34,9 @@ func _on_body_entered(body):
 	health -= body.damage
 	hit.emit(health)
 	# HIt animation 
-	$AnimatedSprite2D.play(("hit"))
+	$AnimatedSprite2D.hide()
 	await get_tree().create_timer(0.1).timeout 
-	$AnimatedSprite2D.play(("default"))
+	$AnimatedSprite2D.show()
 	# death
 	if health <= 0:
 		var exp_orb = exp_orb_scene.instantiate()

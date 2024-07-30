@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/stage.gd" id="1_ieq26"]
 [ext_resource type="PackedScene" uid="uid://b68fablu114dx" path="res://player.tscn" id="2_8aa1v"]
-[ext_resource type="Texture2D" uid="uid://cthsxtjy02qe" path="res://Assets/Background.png" id="2_t24wt"]
 [ext_resource type="PackedScene" uid="uid://3s0cp1wq3im5" path="res://mob.tscn" id="3_ihmim"]
+[ext_resource type="Texture2D" uid="uid://djpd7c7g2t0c7" path="res://Assets/background.png" id="3_vtqma"]
 [ext_resource type="PackedScene" uid="uid://ddrpjw8vddf1v" path="res://hud.tscn" id="6_0fjpt"]
 [ext_resource type="PackedScene" uid="uid://oc1c11t2uq63" path="res://weapon.tscn" id="6_wrhdi"]
 
@@ -20,9 +20,12 @@ mob_scene = ExtResource("3_ihmim")
 [node name="Terrain" type="TextureRect" parent="."]
 offset_right = 3840.0
 offset_bottom = 2160.0
-texture = ExtResource("2_t24wt")
+texture = ExtResource("3_vtqma")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_j446u")
 
 [node name="SpawnTimer" type="Timer" parent="."]

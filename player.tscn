@@ -1,14 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://b68fablu114dx"]
+[gd_scene load_steps=11 format=3 uid="uid://b68fablu114dx"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_p55ar"]
-[ext_resource type="Texture2D" uid="uid://c3nyft5w7pfwu" path="res://Assets/Player.png" id="2_wom35"]
-[ext_resource type="Texture2D" uid="uid://bafg11oclptip" path="res://Assets/Player_Hit.png" id="3_sc8gm"]
+[ext_resource type="Texture2D" uid="uid://bxtqeamw5xv6w" path="res://Assets/character_dead.png" id="2_jhbtr"]
+[ext_resource type="Texture2D" uid="uid://dpiyjsbj4ifmc" path="res://Assets/character_default.png" id="3_lyuhr"]
+[ext_resource type="Texture2D" uid="uid://dq3yjimp13wgp" path="res://Assets/character_move_1.png" id="4_fekhd"]
+[ext_resource type="Texture2D" uid="uid://k3665arsp3ny" path="res://Assets/character_move_2.png" id="5_ttyji"]
+[ext_resource type="Texture2D" uid="uid://bl7s8mftlwal8" path="res://Assets/character_move_3.png" id="6_ywked"]
+[ext_resource type="AudioStream" uid="uid://7o3afu2eu3l0" path="res://Assets/death.wav" id="7_agh5x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uals4"]
+radius = 24.683
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3pb47"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_wom35")
+"texture": ExtResource("2_jhbtr")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_lyuhr")
 }],
 "loop": true,
 "name": &"default",
@@ -16,44 +31,52 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_sc8gm")
+"texture": ExtResource("4_fekhd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ttyji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ywked")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ttyji")
 }],
 "loop": true,
-"name": &"hit",
+"name": &"move",
 "speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gx70v"]
-radius = 33.0
-height = 92.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_uals4"]
-radius = 64.0
+radius = 14.0
+height = 60.0
 
 [node name="Player" type="Area2D"]
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_p55ar")
-metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visibility_layer = 2
-position = Vector2(0, -30)
-scale = Vector2(0.2, 0.2)
-sprite_frames = SubResource("SpriteFrames_3pb47")
-frame_progress = 0.96777
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, -35)
-shape = SubResource("CapsuleShape2D_gx70v")
 
 [node name="PickupArea" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
-position = Vector2(4, -34)
+position = Vector2(-1, -29)
+scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_uals4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visibility_layer = 2
+position = Vector2(0, -30)
+sprite_frames = SubResource("SpriteFrames_3pb47")
+animation = &"dead"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -29)
+shape = SubResource("CapsuleShape2D_gx70v")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_agh5x")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

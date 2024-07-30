@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://3s0cp1wq3im5"]
+[gd_scene load_steps=8 format=3 uid="uid://3s0cp1wq3im5"]
 
 [ext_resource type="Script" path="res://Scripts/mob.gd" id="1_lgugy"]
 [ext_resource type="PackedScene" uid="uid://cu78nh5j25ouv" path="res://exp_orb.tscn" id="2_ocdr8"]
-[ext_resource type="Texture2D" uid="uid://wbomr78nbfuf" path="res://Assets/Mob.png" id="2_qg25l"]
-[ext_resource type="Texture2D" uid="uid://dmbouocb5xi7i" path="res://Assets/Mob_Hit.png" id="3_ty60c"]
+[ext_resource type="Texture2D" uid="uid://dapqrcwhylmso" path="res://Assets/mob_default.png" id="3_g560d"]
+[ext_resource type="Texture2D" uid="uid://c3l8w7gwckj62" path="res://Assets/mob_move_1.png" id="4_ij44u"]
+[ext_resource type="Texture2D" uid="uid://b7clo6jmckq71" path="res://Assets/mob_move_2.png" id="5_cc4pn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7beuw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_qg25l")
+"texture": ExtResource("3_g560d")
 }],
 "loop": true,
 "name": &"default",
@@ -17,29 +18,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_ty60c")
+"texture": ExtResource("4_ij44u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cc4pn")
 }],
 "loop": true,
-"name": &"hit",
+"name": &"move",
 "speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c6ll4"]
-radius = 36.0
-height = 180.0
+radius = 25.0
+height = 54.0
 
 [node name="Mob" type="RigidBody2D" groups=["mobs"]]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_lgugy")
 exp_orb_scene = ExtResource("2_ocdr8")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_7beuw")
+animation = &"move"
+frame_progress = 0.463219
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4, -46)
+position = Vector2(-5, 3)
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_c6ll4")
 
@@ -48,6 +54,7 @@ path_desired_distance = 0.1
 target_desired_distance = 0.1
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-9, 49)
 collision_layer = 2
 collision_mask = 2
 

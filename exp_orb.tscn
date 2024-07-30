@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://d2smrfiu3i8ao" path="res://Assets/Exp.png" id="2_7elfc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xybln"]
-radius = 15.0
-height = 50.0
+radius = 6.0
+height = 18.0
 
 [node name="ExpOrb" type="RigidBody2D"]
 collision_layer = 4
@@ -17,7 +17,11 @@ script = ExtResource("1_rgxrq")
 shape = SubResource("CapsuleShape2D_xybln")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_7elfc")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 0.1
+target_desired_distance = 0.1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

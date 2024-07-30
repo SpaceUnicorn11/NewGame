@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://mu43oc3w4fhf"]
+[gd_scene load_steps=20 format=3 uid="uid://mu43oc3w4fhf"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_k0bky"]
 [ext_resource type="PackedScene" uid="uid://bbf3he66j75ef" path="res://stage.tscn" id="1_tn0jp"]
@@ -6,14 +6,19 @@
 [ext_resource type="Script" path="res://Scripts/LvlupLeft.gd" id="4_vg4tl"]
 [ext_resource type="Script" path="res://Scripts/LvlupMiddle.gd" id="5_svhpd"]
 [ext_resource type="Script" path="res://Scripts/LvlupRight.gd" id="6_0mwuc"]
+[ext_resource type="AudioStream" uid="uid://d4fsk82niw3rc" path="res://Assets/level_up.wav" id="7_tbhtg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10hby"]
+bg_color = Color(0.481789, 0.48179, 0.481789, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_twjnf"]
+bg_color = Color(0.481789, 0.48179, 0.481789, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_110ek"]
+bg_color = Color(0.482353, 0.482353, 0.482353, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hriob"]
+bg_color = Color(0.482353, 0.482353, 0.482353, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udx80"]
 
@@ -45,7 +50,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.172833, 0.172833, 0.172833, 1)
+color = Color(0.560955, 0.560955, 0.560955, 1)
 
 [node name="ExitButton" type="Button" parent="MainMenu"]
 anchors_preset = 8
@@ -89,9 +94,9 @@ offset_top = 300.0
 offset_right = 48.0
 offset_bottom = 323.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.321401, 0.56154, 3.85046e-07, 1)
+theme_override_colors/font_color = Color(0.211379, 0.201239, 0.173973, 0.917647)
 theme_override_font_sizes/font_size = 100
-text = "Game Name"
+text = "Shadow Survivors"
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -297,6 +302,9 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_rovr5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_d42nl")
 text = "Right Choice"
 script = ExtResource("6_0mwuc")
+
+[node name="LevelUpSound" type="AudioStreamPlayer" parent="LevelUpMenu"]
+stream = ExtResource("7_tbhtg")
 
 [node name="VictoryMenu" type="CanvasLayer" parent="."]
 process_mode = 3

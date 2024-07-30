@@ -30,11 +30,16 @@ func _process(delta):
 		velocity.y -= 1
 		player_facing_direction.y = -1
 
-	if velocity.length() > 0:
+	if velocity.length() > 0 && can_move:
 		velocity = velocity.normalized() * speed
-		$AnimatedSprite2D.play()
-	else:
-		$AnimatedSprite2D.stop()
+		if player_facing_direction.x < 0:
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.play('move')
+		else:
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.play('move')	
+	elif can_move:
+		$AnimatedSprite2D.play('default')
 		
 	if can_move:	
 		position += velocity * delta
@@ -49,27 +54,32 @@ func _on_body_entered(body):
 		body.queue_free()
 	if body.type == str("mob"):
 		# death
-		if health - body.damage >= 0:
+		if health - body.damage > 0:
 			health -= body.damage
 			hit.emit(health)
+			# HIt animation 
+			$AnimatedSprite2D.hide()
+			await get_tree().create_timer(0.1).timeout 
+			$AnimatedSprite2D.show()
+			# Iframes
+			$CollisionShape2D.set_deferred("disabled", true)
+			await get_tree().create_timer(0.3).timeout
+			$CollisionShape2D.set_deferred("disabled", false)
 		else: 	
-			health = 0
+			health = 0 
 			hit.emit(health)
 			death()
-		# HIt animation 
-		$AnimatedSprite2D.play(("hit"))
-		await get_tree().create_timer(0.1).timeout 
-		$AnimatedSprite2D.play(("default"))
-		# Iframes
-		$CollisionShape2D.set_deferred("disabled", true)
-		await get_tree().create_timer(0.3).timeout
-		$CollisionShape2D.set_deferred("disabled", false)
+		
 		
 	
 		
 func death():
-	dead.emit()
 	can_move = false
+	$AnimatedSprite2D.play('dead')
+	$DeathSound.play()
+	$Weapon/WeaponCooldown.stop()
+	await get_tree().create_timer(2).timeout
+	dead.emit()
 
 func gain_health(gained_health):
 	max_health += gained_health
@@ -86,7 +96,13 @@ func gain_exp(gained_exp :int):
 		exp_gained.emit(current_exp)
 		level_up.emit(next_level_exp)
 
-
 func _on_pickup_area_body_entered(body):
-	gain_exp(body.exp_amount)
-	body.queue_free()
+	body.picked_up = true
+	var exp_orb = get_node('/root/Main/Stage/ExpOrb')
+	if !body.picked_up: 
+		exp_orb.give_exp.connect(_on_exp_gained)
+		body.picked_up = true
+
+
+func _on_exp_gained(exp_amount):
+	gain_exp(exp_amount)

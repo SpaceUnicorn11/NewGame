@@ -9,7 +9,7 @@ radius = 6.0
 [node name="Projectile" type="RigidBody2D"]
 position = Vector2(-12, -1)
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_buvcu")
 direction = Vector2(1, 0)

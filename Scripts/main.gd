@@ -56,6 +56,7 @@ func _on_player_death():
 	
 func _on_player_level_up(gained_exp):
 	pause_game()
+	$LevelUpMenu/LevelUpSound.play()
 	$LevelUpMenu.show()
 	var cards = randomize_levelup_cards()
 	match cards[0]:

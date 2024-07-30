@@ -14,3 +14,4 @@ func shoot():
 	var projectile = projectile_scene.instantiate()
 	projectile.direction = direction
 	add_child(projectile)
+	$ShotSound.play()
