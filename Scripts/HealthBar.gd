@@ -20,8 +20,8 @@ func _on_player_hit(health):
 	value = current_health
 	$HealthValue.text = str(current_health, "/", max_health)
 
-func _on_player_healed():
-	max_health = player.max_health
-	current_health = player.health
+func _on_player_healed(health, new_max_health):
+	max_value = new_max_health
+	current_health = health
 	value = current_health
-	$HealthValue.text = str(current_health, "/", max_health)
+	$HealthValue.text = str(value, "/", max_value)

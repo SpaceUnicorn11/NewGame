@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b68fablu114dx"]
+[gd_scene load_steps=7 format=3 uid="uid://b68fablu114dx"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_p55ar"]
 [ext_resource type="Texture2D" uid="uid://c3nyft5w7pfwu" path="res://Assets/Player.png" id="2_wom35"]
@@ -27,6 +27,9 @@ animations = [{
 radius = 33.0
 height = 92.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uals4"]
+radius = 64.0
+
 [node name="Player" type="Area2D"]
 collision_layer = 5
 collision_mask = 5
@@ -44,4 +47,13 @@ frame_progress = 0.96777
 position = Vector2(2, -35)
 shape = SubResource("CapsuleShape2D_gx70v")
 
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2(4, -34)
+shape = SubResource("CircleShape2D_uals4")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

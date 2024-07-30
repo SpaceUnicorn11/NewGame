@@ -1,8 +1,8 @@
 extends RigidBody2D
 
 @export var speed = 50 # How fast the mob will move (pixels/sec).
-@export var health = 10 # How much health the mob has
-@export var damage = 1 # How much damage the mob deals
+@export var health = 8 # How much health the mob has
+@export var damage = 0 # How much damage the mob deals
 @export var exp_orb_scene: PackedScene
 var can_move = true # if mob can move
 var type = str("mob")

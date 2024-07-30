@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddrpjw8vddf1v"]
+[gd_scene load_steps=8 format=3 uid="uid://ddrpjw8vddf1v"]
 
 [ext_resource type="Script" path="res://Scripts/GameTime.gd" id="1_qx8ug"]
 [ext_resource type="Script" path="res://Scripts/HealthBar.gd" id="2_bopx6"]
+[ext_resource type="Script" path="res://Scripts/XPBar.gd" id="2_tw8o8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoujp"]
 bg_color = Color(0, 0.290196, 0.968627, 1)
@@ -45,6 +46,7 @@ grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_qoujp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_yghkc")
 value = 20.0
+script = ExtResource("2_tw8o8")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 anchors_preset = 7

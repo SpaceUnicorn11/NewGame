@@ -2,6 +2,7 @@ extends Label
 
 var minutes = 0
 var seconds = 0
+signal end_game
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,4 +17,6 @@ func _on_timer_timeout():
 	if seconds < 10:
 		text = str(minutes, ":0", seconds)
 	else:
-		text = str(minutes, ":", seconds)	
+		text = str(minutes, ":", seconds)
+	if minutes == 5:
+		end_game.emit()

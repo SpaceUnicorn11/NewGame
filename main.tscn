@@ -1,8 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://mu43oc3w4fhf"]
+[gd_scene load_steps=19 format=3 uid="uid://mu43oc3w4fhf"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_k0bky"]
 [ext_resource type="PackedScene" uid="uid://bbf3he66j75ef" path="res://stage.tscn" id="1_tn0jp"]
 [ext_resource type="Script" path="res://Scripts/ExitButton.gd" id="2_b18g5"]
+[ext_resource type="Script" path="res://Scripts/LvlupLeft.gd" id="4_vg4tl"]
+[ext_resource type="Script" path="res://Scripts/LvlupMiddle.gd" id="5_svhpd"]
+[ext_resource type="Script" path="res://Scripts/LvlupRight.gd" id="6_0mwuc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10hby"]
 
@@ -23,6 +26,10 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dyiyp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wimuy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rovr5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d42nl"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_k0bky")
@@ -220,6 +227,7 @@ theme_override_font_sizes/font_size = 80
 text = "Level Up!"
 
 [node name="Button" type="Button" parent="LevelUpMenu"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -236,6 +244,121 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dyiyp")
 theme_override_styles/hover = SubResource("StyleBoxFlat_wimuy")
 text = "OK"
 
+[node name="Left" type="Button" parent="LevelUpMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -40.0
+offset_right = -300.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_rovr5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d42nl")
+text = "Left Choice"
+script = ExtResource("4_vg4tl")
+
+[node name="Middle" type="Button" parent="LevelUpMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 103.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_rovr5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d42nl")
+text = "Middle Choice"
+script = ExtResource("5_svhpd")
+
+[node name="Right" type="Button" parent="LevelUpMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 300.0
+offset_top = -40.0
+offset_right = 500.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_rovr5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d42nl")
+text = "Right Choice"
+script = ExtResource("6_0mwuc")
+
+[node name="VictoryMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="VictoryMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.172833, 0.172833, 0.172833, 1)
+
+[node name="ExitButton" type="Button" parent="VictoryMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 160.0
+offset_right = 100.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_10hby")
+theme_override_styles/hover = SubResource("StyleBoxFlat_twjnf")
+text = "Exit game"
+script = ExtResource("2_b18g5")
+
+[node name="MainMenuButton" type="Button" parent="VictoryMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 60.0
+offset_right = 100.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_8fqan")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bw6h6")
+text = "Main menu"
+
+[node name="YouWon" type="Label" parent="VictoryMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -235.5
+offset_top = -140.0
+offset_right = 235.5
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.887451, 0.839712, 0.0726918, 1)
+theme_override_font_sizes/font_size = 100
+text = "YOU SURVIVED"
+
 [connection signal="pressed" from="MainMenu/ExitButton" to="MainMenu/ExitButton" method="_on_pressed"]
 [connection signal="pressed" from="MainMenu/StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="PauseMenu/ExitButton" to="PauseMenu/ExitButton" method="_on_pressed"]
@@ -244,3 +367,8 @@ text = "OK"
 [connection signal="pressed" from="EndStageMenu/ExitButton" to="EndStageMenu/ExitButton" method="_on_pressed"]
 [connection signal="pressed" from="EndStageMenu/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="LevelUpMenu/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="LevelUpMenu/Left" to="." method="_on_left_levelup_pressed"]
+[connection signal="pressed" from="LevelUpMenu/Middle" to="." method="_on_middle_levelup_pressed"]
+[connection signal="pressed" from="LevelUpMenu/Right" to="." method="_on_right_levelup_pressed"]
+[connection signal="pressed" from="VictoryMenu/ExitButton" to="VictoryMenu/ExitButton" method="_on_pressed"]
+[connection signal="pressed" from="VictoryMenu/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
